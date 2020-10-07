@@ -1,0 +1,82 @@
+import java.io.*;
+
+public class PilhaIngenua {
+	
+	protected final static int MAX = 1000000;
+	protected static Integer[] pilha;
+	protected static int inicio;
+	protected static int fim;
+	protected static int elementos;
+	
+
+	PilhaIngenua (){
+		pilha = new Integer[MAX];
+		elementos = 0;
+		inicio = -1;
+		fim = -1;
+	
+	}
+	
+	static void add (int newElement){
+		if (elementos == 0) {
+			pilha[0] = newElement;
+			elementos++;
+		}
+		else {
+			for (int i = 0; pilha[i] != null; i++) {
+				if (pilha[i+1] == null) {
+					pilha [i+1] = newElement;
+					elementos++;
+					break;
+				}
+			}
+		}
+	}
+
+	static int remove() {
+		int i;
+		for (i = 0; pilha[i] != null; i++);
+		int tmp = pilha[i - 1];
+		pilha[i -1] = null;
+		System.out.println("excluiu elemento " + tmp );
+		return tmp;
+	}
+	
+	static boolean pilhaCheia () {
+		if (elementos == MAX -1) return true;
+		return false;
+	}
+	
+	public static void main(String[] args) {
+		pilha = new Integer[MAX];
+		try {
+			BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream("/home/tamires/Desktop/2020.2/AED/teste.txt")));
+			while (br.ready()) {
+				String linha = br.readLine();
+				if(linha != null && !linha.isEmpty()) {
+					int entrada = Integer.parseInt(linha);
+					add(entrada);
+					
+					//imprime
+					for(int i = 0; i<pilha.length; i++){
+						if (pilha[i] != null) {
+							System.out.println("posicao " + (i+1) + " = " + pilha[i]);
+				    	 }
+				    }
+					System.out.println("");
+					System.out.println("");
+				}
+				else {
+			    	 remove();
+			    	 elementos--;
+			    	 System.out.println("");
+			    	 System.out.println("");
+			    }
+			}
+			br.close(); 
+		 }
+		 catch (Exception e) {
+		   System.out.println("Erro: " + e.getMessage());
+		 }
+	 }
+}
