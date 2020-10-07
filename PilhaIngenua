@@ -46,17 +46,12 @@ public class PilhaIngenua {
 			BufferedReader entrada = new BufferedReader(new InputStreamReader(new FileInputStream("/home/tamires/Desktop/2020.2/AED/teste.txt")));
 			while (entrada.ready()) {
 				String linha = entrada.readLine();
-				if (elementos == MAX -1) {
-					System.out.println("Pilha cheia!");
-					entrada.close();
-				}
-				else if(linha != null && !linha.isEmpty()) {
+				if(linha != null && !linha.isEmpty()) {
 					int adicionar = Integer.parseInt(linha);
 					add(adicionar);
 				}
 				else {
-					System.out.println(remove());
-			    	 
+					System.out.println(remove());    	 
 			    }
 			}
 			entrada.close(); 
