@@ -1,6 +1,4 @@
-import java.io.BufferedReader;
-import java.io.FileInputStream;
-import java.io.InputStreamReader;
+import java.io.*;
 
 public class PilhaIngenua {
 	
@@ -41,23 +39,38 @@ public class PilhaIngenua {
 	}
 	
 	public static void main(String[] args) {
+		long t = System.currentTimeMillis();
 		pilha = new Integer[MAX];
+		
+		
 		try {
-			BufferedReader entrada = new BufferedReader(new InputStreamReader(new FileInputStream("/home/tamires/Desktop/2020.2/AED/teste.txt")));
-			while (entrada.ready()) {
-				String linha = entrada.readLine();
-				if(linha != null && !linha.isEmpty()) {
-					int adicionar = Integer.parseInt(linha);
-					add(adicionar);
+			File arquivos[];
+			File diretorio = new File("/home/tamires/Desktop/2020.2/AED/entradas");
+			arquivos = diretorio.listFiles();
+
+			for(int i = 0; i < arquivos.length; i++){
+			
+				BufferedReader entrada = new BufferedReader(new InputStreamReader(new FileInputStream(arquivos[i])));
+																									//se trocar arquivos[i] pelo caminho de cada arquivo dá certo
+
+				while (entrada.ready()) {
+					String linha = entrada.readLine();
+					if(linha != null && !linha.isEmpty()) {
+						int adicionar = Integer.parseInt(linha);
+						add(adicionar);
+					}
+					else {
+						System.out.println(remove());    	 
+				    }
 				}
-				else {
-					System.out.println(remove());    	 
-			    }
+				entrada.close(); 
+				// a saída seria aqui para cada arquivo
+				
 			}
-			entrada.close(); 
-		 }
+		}
 		 catch (Exception e) {
 		   System.out.println("Erro: " + e.getMessage());
 		 }
+		System.out.println("Tempo de execução, em milisegundos: "+ ((System.currentTimeMillis()) - t));
 	 }
 }
