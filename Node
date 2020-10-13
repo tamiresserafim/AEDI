@@ -1,0 +1,24 @@
+public class Node {
+	Node Prox;
+	int codigo;
+	
+	public Node() {
+		
+	}
+	
+	public Node getProx() {
+		return Prox;
+	}
+	
+	public void setProx(Node Prox) {
+		this.Prox = Prox;
+	}
+	
+	public int getCodigo() {
+		return codigo;
+	}
+	
+	public void setCodigo(int codigo) {
+		this.codigo = codigo;
+	}
+}
