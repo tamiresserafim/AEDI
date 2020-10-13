@@ -1,0 +1,52 @@
+import java.io.BufferedReader;
+import java.io.FileInputStream;
+import java.io.InputStreamReader;
+
+public class PilhaIngenuaExtra {
+		
+	protected final static int MAX = 1000000;
+	protected static Integer[] pilha;
+	protected static int inicio;
+	protected static int fim;
+	
+
+	PilhaIngenuaExtra (){
+		pilha = new Integer[MAX];
+		fim = 0;
+	}
+	
+	static void add (int newElement){
+		pilha [fim] = newElement;
+		fim++;
+	}
+
+	static int remove() {
+		int tmp = pilha[fim-1];
+		pilha[fim-1] = null;
+		fim--;
+		return tmp;
+	}
+	
+	public static void main(String[] args) {
+		long t = System.currentTimeMillis();
+		pilha = new Integer[MAX];
+		try {
+			BufferedReader entrada = new BufferedReader(new InputStreamReader(new FileInputStream("/home/tamires/Desktop/2020.2/AED/teste.txt")));
+			while (entrada.ready()) {
+				String linha = entrada.readLine();
+				if(linha != null && !linha.isEmpty()) {
+					int adicionar = Integer.parseInt(linha);
+					add(adicionar);
+				}
+				else {
+					System.out.println(remove()); 
+			    }
+			}
+			entrada.close(); 
+		 }
+		 catch (Exception e) {
+		   System.out.println("Erro: " + e.getMessage());
+		 }
+		System.out.println("Tempo de execução, em milisegundos: "+ ((System.currentTimeMillis()) - t));
+	 }
+}
