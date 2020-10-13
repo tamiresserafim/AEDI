@@ -1,0 +1,73 @@
+import java.io.BufferedReader;
+import java.io.FileInputStream;
+import java.io.InputStreamReader;
+
+public class ListaDinamica {
+	static Node Primeiro;
+	static Node Ultimo;
+	static int tamanho = 0;
+
+	public ListaDinamica() {
+		Primeiro = Ultimo = null;
+	}
+	
+	public void add(int codigo) {
+		if(Primeiro == null) {
+			Primeiro = new Node();
+			Ultimo = Primeiro;
+			Node Novo = new Node();
+			Novo.setCodigo(codigo);
+			Novo.setProx(null);
+			Ultimo.setProx(null);
+			Ultimo = Novo;
+			tamanho++;
+		}
+		else {
+			Node Novo = new Node();
+			Novo.setCodigo(codigo);
+			Novo.setProx(null);
+			Ultimo.setProx(Novo);
+			Ultimo = Novo;
+			tamanho++;			
+		}
+	}
+	
+	public void removeItem (Node codigoParaRemover) {
+		Node aux = Primeiro;
+		Node ant = Primeiro;
+		while (aux.getProx() != null) {
+			ant = aux;
+			aux = aux.getProx();
+		}
+		ant.setProx(null);
+		Ultimo = ant;
+		tamanho--;
+	}
+	
+	public static void main (String args[]) {
+		
+		long t = System.currentTimeMillis();
+		
+		
+		ListaDinamica Lista1 = new ListaDinamica();
+		try {
+			BufferedReader entrada = new BufferedReader(new InputStreamReader(new FileInputStream("/home/tamires/Desktop/2020.2/AED/teste.txt")));
+			while (entrada.ready()) {
+				String linha = entrada.readLine();
+				if(linha != null && !linha.isEmpty()) {
+					Lista1.add(Integer.parseInt(linha));
+				}
+				else {
+					System.out.println(Ultimo.codigo); 
+					Lista1.removeItem(Ultimo);	 
+			    }
+			}
+			entrada.close(); 
+		 }
+		 catch (Exception e) {
+		   System.out.println("Erro: " + e.getMessage());
+		 }
+		System.out.println("Tempo de execução, em milisegundos: "+ ((System.currentTimeMillis()) - t));
+	}
+
+}
